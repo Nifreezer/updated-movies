@@ -1,0 +1,52 @@
+MoMo API Integration Guide for Movie Website
+==========================================
+
+1. Configuration
+---------------
+1.1. Edit momo_config.php to add your MoMo API credentials:
+     - MOMO_API_KEY: Your MoMo API key
+     - MOMO_API_USER: Your MoMo API user ID
+     - MOMO_API_SECRET: Your MoMo API secret
+     - MOMO_SUBSCRIPTION_KEY: Your MoMo subscription key
+
+1.2. Set the environment:
+     - For testing: MOMO_ENVIRONMENT = 'sandbox'
+     - For production: MOMO_ENVIRONMENT = 'production'
+
+2. Database Setup
+----------------
+2.1. Run setup_db.php to ensure the withdrawals table has the required columns:
+     - transaction_id: Stores the MoMo transaction ID
+
+3. How It Works
+--------------
+3.1. When an admin approves a withdrawal request in the monetization dashboard:
+     - The withdrawal status is set to 'approved'
+     - The MoMoAPI::processWithdrawal() method is called
+     - Funds are transferred via the MoMo Disbursement API
+     - The transaction ID is stored in the database
+
+3.2. To check the status of a withdrawal:
+     - Use the "Check Status" button in the monetization dashboard
+     - The MoMoAPI::checkWithdrawalStatus() method is called
+     - The current status is displayed to the admin
+
+4. API Methods
+-------------
+4.1. requestPayment(): Request a payment from a user
+4.2. checkPaymentStatus(): Check the status of a payment request
+4.3. transferFunds(): Send funds to a user (disbursement)
+4.4. checkTransferStatus(): Check the status of a transfer
+4.5. processWithdrawal(): Process a withdrawal request from the dashboard
+4.6. checkWithdrawalStatus(): Check the status of a withdrawal
+
+5. Testing
+---------
+5.1. Run test_momo.php to verify the integration is working
+5.2. Check that all configuration values are properly loaded
+
+6. Security Notes
+---------------
+6.1. Never commit your momo_config.php file to version control
+6.2. In production, consider using environment variables instead of constants
+6.3. Ensure SSL is enabled for all API communications

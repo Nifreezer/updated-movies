@@ -1,0 +1,72 @@
+MTN MoMo API Integration Fix Instructions
+=========================================
+
+Issue: "Withdrawal approved but MoMo API processing failed! Manual processing required. Error: HTTP 401: Access denied due to invalid subscription key."
+
+This error occurs because the MoMo API credentials in momo_config.php are either:
+1. Placeholder values that need to be replaced with actual credentials
+2. Invalid/expired credentials
+3. Incorrect subscription key
+
+Solution Steps:
+
+1. Obtain Valid MoMo API Credentials
+-----------------------------------
+- Visit the MTN MoMo Developer Portal: https://momodeveloper.mtn.com/
+- Register for an account or log in if you already have one
+- Create a new application or use an existing one
+- Obtain the following credentials:
+  * API Key
+  * API User ID
+  * API Secret
+  * Subscription Key
+
+2. Update momo_config.php
+-------------------------
+- Open momo_config.php in a text editor
+- Replace the placeholder values with your actual credentials:
+  
+  define('MOMO_API_KEY', 'YOUR_ACTUAL_API_KEY');
+  define('MOMO_API_USER', 'YOUR_ACTUAL_API_USER');
+  define('MOMO_API_SECRET', 'YOUR_ACTUAL_API_SECRET');
+  define('MOMO_SUBSCRIPTION_KEY', 'YOUR_ACTUAL_SUBSCRIPTION_KEY');
+  
+  With your actual values, for example:
+  
+  define('MOMO_API_KEY', 'a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8');
+  define('MOMO_API_USER', 'user123');
+  define('MOMO_API_SECRET', 'secret456');
+  define('MOMO_SUBSCRIPTION_KEY', 'sub789key012');
+
+3. Verify Environment Settings
+------------------------------
+- Ensure MOMO_ENVIRONMENT is set correctly:
+  * 'sandbox' for testing
+  * 'production' for live transactions
+
+4. Test the Integration
+-----------------------
+- Run setup_db.php to ensure the database schema is up to date
+- Test the integration using the admin dashboard
+- Approve a withdrawal to trigger MoMo API processing
+
+5. Check Error Logs
+-------------------
+- If issues persist, check your PHP error logs for more detailed error messages
+- Look for entries containing "MoMo", "API", or "cURL"
+
+6. Common Issues and Solutions
+------------------------------
+- HTTP 401: Invalid subscription key
+  * Solution: Verify your subscription key is correct and active
+  
+- HTTP 400: Bad Request
+  * Solution: Check that all credentials are correctly formatted
+  
+- cURL errors
+  * Solution: Verify network connectivity and SSL configuration
+
+For additional help:
+- Refer to the MoMo_INTEGRATION_GUIDE.txt file
+- Check the MTN MoMo Developer Documentation
+- Contact MTN MoMo support if you continue to experience issues

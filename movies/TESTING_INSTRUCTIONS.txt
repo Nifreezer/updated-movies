@@ -1,0 +1,53 @@
+MoMo API Integration Testing Instructions
+=======================================
+
+1. Verify Configuration
+---------------------
+1.1. Check that momo_config.php contains your actual credentials
+1.2. Confirm the environment is set correctly (sandbox for testing)
+
+2. Database Setup
+---------------
+2.1. Run setup_db.php to ensure all tables and columns are created
+2.2. Verify the withdrawals table has the transaction_id column
+
+3. Test Scripts
+-------------
+3.1. Run test_momo_credentials.php to verify configuration loading
+3.2. Run verify_db_schema.php to check database structure
+3.3. Run phone_format_test.php to test phone number formatting
+
+4. Admin Dashboard Testing
+------------------------
+4.1. Log in to the admin panel
+4.2. Navigate to the monetization dashboard
+4.3. Request a withdrawal (this simulates a user withdrawal request)
+4.4. Approve the withdrawal to trigger MoMo API processing
+4.5. Check the transaction status using the "Check Status" button
+
+5. Manual Testing
+---------------
+5.1. Access admin/momo_test.php to manually test API functions
+5.2. Use the test form to simulate payment requests
+
+6. Verification Points
+--------------------
+6.1. All configuration values should be properly loaded
+6.2. Database schema should include all required columns
+6.3. Phone numbers should be correctly formatted
+6.4. API requests should be sent when withdrawals are approved
+6.5. Transaction IDs should be stored in the database
+6.6. Status checks should return current transaction status
+
+7. Troubleshooting
+----------------
+7.1. If API calls fail, check your credentials in momo_config.php
+7.2. If database errors occur, re-run setup_db.php
+7.3. If phone numbers are not formatted correctly, check the JavaScript in watch.php
+7.4. If transactions fail, verify you're using the correct environment (sandbox vs production)
+
+8. Production Deployment
+----------------------
+8.1. Update MOMO_ENVIRONMENT to 'production' in momo_config.php
+8.2. Use production API credentials
+8.3. Test thoroughly before processing real transactions
